@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+provider "azurerm" { 
+  features {}
+}
+
 resource "azurerm_network_interface" "vm_nic" {
   name                = "${var.prefix}-nic"
   location            = var.location
