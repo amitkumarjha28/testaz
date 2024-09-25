@@ -1,0 +1,21 @@
+resource "azurerm_virtual_machine_extension" "example" {
+  name                 = "joinAD"
+  virtual_machine_id   = azurerm_windows_virtual_machine.example.id
+  publisher            = "Microsoft.Compute"
+  type                 = "AADLoginForWindows"
+  type_handler_version = "1.0"
+
+  settings = <<SETTINGS
+    {
+        "MachineObjectOU": "OU=Computers,DC=yourdomain,DC=com",
+        "TenantID": "your_tenant_id"
+    }
+SETTINGS
+
+  protected_settings = <<PROTECTED_SETTINGS
+    {
+        "AADClientAppID": "your_client_app_id",
+        "AADClientAppSecret": "your_client_app_secret"
+    }
+PROTECTED_SETTINGS
+}
